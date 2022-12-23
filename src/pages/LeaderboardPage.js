@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AccountProfile from "../components/AccountProfile";
 import Container from "../components/Container";
-import { fetchLeaderboard } from "../store/leaderboard/action";
+import { asyncGetLeaderboards } from "../states/leaderboards/action";
 
 export default function LeaderboardPage() {
   const dispatch = useDispatch();
-  const { leaderboard } = useSelector((state) => state);
+  const { leaderboards } = useSelector((state) => state);
 
   useEffect(() => {
-    dispatch(fetchLeaderboard());
+    dispatch(asyncGetLeaderboards());
   }, [dispatch]);
 
   return (
@@ -20,7 +20,7 @@ export default function LeaderboardPage() {
           <span>Pengguna</span>
           <span>Skor</span>
         </div>
-        {leaderboard.map((account) => (
+        {leaderboards.map((account) => (
           <div key={account.user.id} className="flex items-center space-x-3">
             <AccountProfile
               avatar={account.user.avatar}
