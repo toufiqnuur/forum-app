@@ -6,7 +6,7 @@ import { asyncGetLeaderboards } from "../states/leaderboards/action";
 
 export default function LeaderboardPage() {
   const dispatch = useDispatch();
-  const { leaderboards } = useSelector((state) => state);
+  const { leaderboards, authUser } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(asyncGetLeaderboards());
@@ -24,7 +24,9 @@ export default function LeaderboardPage() {
           <div key={account.user.id} className="flex items-center space-x-3">
             <AccountProfile
               avatar={account.user.avatar}
-              name={account.user.name}
+              name={`${account.user.name} ${
+                authUser?.id === account.user.id ? "(Anda)" : ""
+              }`}
               size="LG"
               className="flex-1 text-lg"
             />
