@@ -11,7 +11,7 @@ import {
 
 export default function HomePage() {
   const dispatch = useDispatch();
-  const { threads } = useSelector((state) => state);
+  const { threads, authUser } = useSelector((state) => state);
   const [filterCategory, setFilterCategory] = useState(null);
 
   useEffect(() => {
@@ -31,8 +31,9 @@ export default function HomePage() {
         threads={threads.filter((thread) =>
           filterCategory ? thread.category === filterCategory : thread
         )}
-        onUpVote={(id) => dispatch(asyncToggleLikeThread(id))}
-        onDownVote={(id) => dispatch(asyncToggleDislikeThread(id))}
+        userId={authUser?.id}
+        onLike={(threadId) => dispatch(asyncToggleLikeThread(threadId))}
+        onDislike={(threadId) => dispatch(asyncToggleDislikeThread(threadId))}
       />
     </Container>
   );
