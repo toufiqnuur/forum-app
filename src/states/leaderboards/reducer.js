@@ -2,7 +2,7 @@ import { ActionType } from "./action";
 
 function leaderboardsReducer(leaderboards = [], action = {}) {
   switch (action.type) {
-    case ActionType.SET_LEADERBOARDS:
+    case ActionType.RECEIVE_LEADERBOARDS:
       return action.payload.leaderboards;
     default:
       return leaderboards;

@@ -2,12 +2,12 @@ import { hideLoading, showLoading } from "react-redux-loading-bar";
 import api from "../../utils/api";
 
 const ActionType = {
-  SET_LEADERBOARDS: "SET_LEADERBOARDS",
+  RECEIVE_LEADERBOARDS: "leaderboards/receive",
 };
 
-function setLeaderboardsTrigger(leaderboards) {
+function receiveLeaderboardsTrigger(leaderboards) {
   return {
-    type: ActionType.SET_LEADERBOARDS,
+    type: ActionType.RECEIVE_LEADERBOARDS,
     payload: {
       leaderboards,
     },
@@ -19,7 +19,7 @@ function asyncGetLeaderboards() {
     dispatch(showLoading());
     try {
       const leaderboards = await api.getLeaderboards();
-      dispatch(setLeaderboardsTrigger(leaderboards));
+      dispatch(receiveLeaderboardsTrigger(leaderboards));
     } catch (error) {
       alert(error.message);
     }
@@ -27,4 +27,4 @@ function asyncGetLeaderboards() {
   };
 }
 
-export { ActionType, setLeaderboardsTrigger, asyncGetLeaderboards };
+export { ActionType, asyncGetLeaderboards };
