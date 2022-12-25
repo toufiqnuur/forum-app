@@ -1,39 +1,22 @@
 import { IoThumbsDownOutline, IoThumbsUpOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
 
 export default function Votes({
-  threadId,
-  upVote,
-  downVote,
-  onUpVote,
-  onDownVote,
-  className,
+  like,
+  dislike,
+  isLiked,
+  isDisliked,
+  onLike,
+  onDislike,
 }) {
-  const { authUser } = useSelector((state) => state);
-
   return (
-    <div className={`inline-flex space-x-3 ${className}`}>
-      <button
-        className="inline-flex space-x-1"
-        onClick={() => onUpVote(threadId)}
-      >
-        <IoThumbsUpOutline
-          className={`${
-            authUser && upVote.includes(authUser.id) && "text-blue-600"
-          }`}
-        />{" "}
-        <span>{upVote?.length}</span>
+    <div className="inline-flex space-x-3">
+      <button className="inline-flex space-x-1" onClick={onLike}>
+        <IoThumbsUpOutline className={`${isLiked && "text-blue-600"}`} />{" "}
+        <span>{like}</span>
       </button>
-      <button
-        className="inline-flex space-x-1"
-        onClick={() => onDownVote(threadId)}
-      >
-        <IoThumbsDownOutline
-          className={`${
-            authUser && downVote.includes(authUser.id) && "text-blue-600"
-          }`}
-        />{" "}
-        <span>{downVote?.length}</span>
+      <button className="inline-flex space-x-1" onClick={onDislike}>
+        <IoThumbsDownOutline className={`${isDisliked && "text-red-600"}`} />{" "}
+        <span>{dislike}</span>
       </button>
     </div>
   );
