@@ -1,9 +1,13 @@
-import { IoArrowUndoOutline } from "react-icons/io5";
+import {
+  IoCalendarClearOutline,
+  IoChatbubblesOutline,
+  IoPersonOutline,
+} from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { postedAt } from "../utils";
 import Votes from "./Votes";
 
-export default function ThreadList({ threads, onUpVote, onDownVote }) {
+export default function ThreadList({ threads, onLike, onDislike, userId }) {
   return (
     <>
       {threads.map((thread) => (
@@ -12,20 +16,25 @@ export default function ThreadList({ threads, onUpVote, onDownVote }) {
           <h5 className="mt-3">
             <Link to={`/threads/${thread.id}`}>{thread.title}</Link>
           </h5>
-          <div className="mt-2 flex items-center space-x-3 text-sm">
+          <div className="mt-2 flex flex-wrap items-center space-x-3 text-sm lg:text-base">
             <Votes
-              upVote={thread.upVotesBy}
-              downVote={thread.downVotesBy}
-              onUpVote={onUpVote}
-              onDownVote={onDownVote}
+              like={thread.upVotesBy?.length}
+              isLiked={thread.upVotesBy.includes(userId)}
+              onLike={() => onLike(thread.id)}
+              dislike={thread.downVotesBy?.length}
+              isDisliked={thread.downVotesBy.includes(userId)}
+              onDislike={() => onDislike(thread.id)}
             />
-            <div className="inline-flex space-x-1">
-              <IoArrowUndoOutline /> <span>{thread.totalComments}</span>
+            <div className="flex items-center space-x-1">
+              <IoChatbubblesOutline /> <span>{thread.totalComments}</span>
             </div>
-            <span>{postedAt(thread.createdAt)}</span>
-            <span>
-              oleh <strong>{thread.ownerName}</strong>
-            </span>
+            <div className="flex items-center space-x-1">
+              <IoPersonOutline /> <span>{thread.ownerName}</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <IoCalendarClearOutline />{" "}
+              <span>{postedAt(thread.createdAt)}</span>
+            </div>
           </div>
         </div>
       ))}
