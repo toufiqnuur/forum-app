@@ -7,7 +7,7 @@ export default function Votes({ like, dislike, isLiked, isDisliked, onLike, onDi
         <IoThumbsUpOutline className={`${isLiked && 'text-blue-600'}`} /> <span>{like}</span>
       </button>
       <button className="inline-flex space-x-1" onClick={onDislike} data-testid="dislike-button">
-        <IoThumbsDownOutline className={`${isDisliked && 'text-green-600'}`} /> <span>{dislike}</span>
+        <IoThumbsDownOutline className={`${isDisliked && 'text-red-600'}`} /> <span>{dislike}</span>
       </button>
     </div>
   );
