@@ -1,8 +1,8 @@
-import { hideLoading, showLoading } from "react-redux-loading-bar";
-import api from "../../utils/api";
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
+import api from '../../utils/api';
 
 const ActionType = {
-  RECEIVE_LEADERBOARDS: "leaderboards/receive",
+  RECEIVE_LEADERBOARDS: 'leaderboards/receive',
 };
 
 function receiveLeaderboardsTrigger(leaderboards) {
@@ -27,4 +27,4 @@ function asyncGetLeaderboards() {
   };
 }
 
-export { ActionType, asyncGetLeaderboards };
+export { ActionType, asyncGetLeaderboards, receiveLeaderboardsTrigger };

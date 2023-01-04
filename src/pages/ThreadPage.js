@@ -21,6 +21,8 @@ export default function ThreadPage() {
     dispatch(asyncReceiveThreadDetail(threadId));
   }, [dispatch, threadId]);
 
+  if (!threadDetail) return null;
+
   return (
     <Container className="pt-6 pb-24">
       {threadDetail && (

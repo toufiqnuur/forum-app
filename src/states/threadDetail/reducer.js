@@ -54,56 +54,71 @@ function threadDetailReducer(threadDetail = [], action = {}) {
         comments: [action.payload.comment, ...threadDetail.comments],
       };
     case ActionType.TOGGLE_LIKE_COMMENT:
-      return threadDetail.comments.map((comment) => {
-        if (comment.id === action.payload.commentId) {
-          return {
-            ...comment,
-            upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-              ? comment.upVotesBy.filter((uid) => uid !== action.payload.userId)
-              : [action.payload.userId, ...comment.upVotesBy],
-            downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-              ? comment.downVotesBy.filter(
-                  (uid) => uid !== action.payload.userId
-                )
-              : comment.downVotesBy,
-          };
-        }
-        return comment;
-      });
+      return {
+        ...threadDetail,
+        comments: threadDetail.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            return {
+              ...comment,
+              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+                ? comment.upVotesBy.filter(
+                    (uid) => uid !== action.payload.userId
+                  )
+                : [action.payload.userId, ...comment.upVotesBy],
+              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+                ? comment.downVotesBy.filter(
+                    (uid) => uid !== action.payload.userId
+                  )
+                : comment.downVotesBy,
+            };
+          }
+          return comment;
+        }),
+      };
     case ActionType.TOGGLE_DISLIKE_COMMENT:
-      return threadDetail.comments.map((comment) => {
-        if (comment.id === action.payload.commentId) {
-          return {
-            ...comment,
-            upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-              ? comment.upVotesBy.filter((uid) => uid !== action.payload.userId)
-              : comment.upVotesBy,
-            downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-              ? comment.downVotesBy.filter(
-                  (uid) => uid !== action.payload.userId
-                )
-              : [action.payload.userId, ...comment.downVotesBy],
-          };
-        }
-        return comment;
-      });
+      return {
+        ...threadDetail,
+        comments: threadDetail.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            return {
+              ...comment,
+              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+                ? comment.upVotesBy.filter(
+                    (uid) => uid !== action.payload.userId
+                  )
+                : comment.upVotesBy,
+              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+                ? comment.downVotesBy.filter(
+                    (uid) => uid !== action.payload.userId
+                  )
+                : [action.payload.userId, ...comment.downVotesBy],
+            };
+          }
+          return comment;
+        }),
+      };
     case ActionType.TOGGLE_CLEAR_VOTE_COMMENT:
-      return threadDetail.comments.map((comment) => {
-        if (comment.id === action.payload.commentId) {
-          return {
-            ...comment,
-            upVotesBy: comment.upVotesBy.includes(action.payload.userId)
-              ? comment.upVotesBy.filter((uid) => uid !== action.payload.userId)
-              : comment.upVotesBy,
-            downVotesBy: comment.downVotesBy.includes(action.payload.userId)
-              ? comment.downVotesBy.filter(
-                  (uid) => uid !== action.payload.userId
-                )
-              : comment.downVotesBy,
-          };
-        }
-        return comment;
-      });
+      return {
+        ...threadDetail,
+        comments: threadDetail.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            return {
+              ...comment,
+              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+                ? comment.upVotesBy.filter(
+                    (uid) => uid !== action.payload.userId
+                  )
+                : comment.upVotesBy,
+              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+                ? comment.downVotesBy.filter(
+                    (uid) => uid !== action.payload.userId
+                  )
+                : comment.downVotesBy,
+            };
+          }
+          return comment;
+        }),
+      };
     default:
       return threadDetail;
   }

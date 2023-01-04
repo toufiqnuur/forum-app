@@ -22,7 +22,7 @@ export default function HomePage() {
     <Container className="pt-6 pb-24">
       <h3>Daftar kategori</h3>
       <CategoryList
-        categories={[...new Set(threads.map((thread) => thread.category))]}
+        categories={[...new Set(threads.map((thread) => thread?.category))]}
         current={filterCategory}
         onChange={(selected) => setFilterCategory(selected)}
       />

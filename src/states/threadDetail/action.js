@@ -1,16 +1,16 @@
-import { hideLoading, showLoading } from "react-redux-loading-bar";
-import api from "../../utils/api";
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
+import api from '../../utils/api';
 
 const ActionType = {
-  CLEAR_THREAD_DETAIL: "threadDetail/clear",
-  RECEIVE_THREAD_DETAIL: "threadDetail/receive",
-  TOGGLE_LIKE_THREAD: "threadDetail/likeThread",
-  TOGGLE_DISLIKE_THREAD: "threadDetail/dislikeThread",
-  TOGGLE_CLEAR_VOTE_THREAD: "threadDetail/clearVoteThread",
-  ADD_COMMENT: "threadDetail/addComment",
-  TOGGLE_LIKE_COMMENT: "threadDetail/likeComment",
-  TOGGLE_DISLIKE_COMMENT: "threadDetail/dislikeComment",
-  TOGGLE_CLEAR_VOTE_COMMENT: "threadDetail/clearVoteComment",
+  CLEAR_THREAD_DETAIL: 'threadDetail/clear',
+  RECEIVE_THREAD_DETAIL: 'threadDetail/receive',
+  TOGGLE_LIKE_THREAD: 'threadDetail/likeThread',
+  TOGGLE_DISLIKE_THREAD: 'threadDetail/dislikeThread',
+  TOGGLE_CLEAR_VOTE_THREAD: 'threadDetail/clearVoteThread',
+  ADD_COMMENT: 'threadDetail/addComment',
+  TOGGLE_LIKE_COMMENT: 'threadDetail/likeComment',
+  TOGGLE_DISLIKE_COMMENT: 'threadDetail/dislikeComment',
+  TOGGLE_CLEAR_VOTE_COMMENT: 'threadDetail/clearVoteComment',
 };
 
 function clearThreadDetailTrigger() {
@@ -111,7 +111,7 @@ function asyncReceiveThreadDetail(threadId) {
 function asyncToggleLikeThread() {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
-    if (!authUser) return alert("Login untuk memberi vote");
+    if (!authUser) return alert('Login untuk memberi vote');
 
     if (threadDetail.upVotesBy.includes(authUser.id)) {
       dispatch(
@@ -137,7 +137,7 @@ function asyncToggleLikeThread() {
 function asyncToggleDislikeThread() {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
-    if (!authUser) return alert("Login untuk memberi vote");
+    if (!authUser) return alert('Login untuk memberi vote');
 
     if (threadDetail.downVotesBy.includes(authUser.id)) {
       dispatch(
@@ -179,7 +179,7 @@ function asyncAddNewComment({ threadId, content }) {
   return async (dispatch) => {
     dispatch(showLoading());
     try {
-      const { comment } = await api.createComment({ threadId, content });
+      const comment = await api.createComment({ threadId, content });
       dispatch(addCommentTrigger(comment));
     } catch (error) {
       alert(error.message);
@@ -194,14 +194,10 @@ function asyncToggleLikeComment(commentId) {
       authUser,
       threadDetail: { comments, id: threadId },
     } = getState();
-    if (!authUser) return alert("Login untuk memberi vote");
+    if (!authUser) return alert('Login untuk memberi vote');
 
     dispatch(showLoading());
-    if (
-      comments
-        .find((comment) => comment.id === commentId)
-        .upVotesBy.includes(authUser.id)
-    ) {
+    if (comments.find((comment) => comment.id === commentId).upVotesBy.includes(authUser.id)) {
       dispatch(
         asyncToggleClearVoteComment({
           userId: authUser.id,
@@ -228,14 +224,10 @@ function asyncToggleDislikeComment(commentId) {
       authUser,
       threadDetail: { comments, id: threadId },
     } = getState();
-    if (!authUser) return alert("Login untuk memberi vote");
+    if (!authUser) return alert('Login untuk memberi vote');
 
     dispatch(showLoading());
-    if (
-      comments
-        .find((comment) => comment.id === commentId)
-        .downVotesBy.includes(authUser.id)
-    ) {
+    if (comments.find((comment) => comment.id === commentId).downVotesBy.includes(authUser.id)) {
       dispatch(
         asyncToggleClearVoteComment({
           userId: authUser.id,
@@ -254,9 +246,7 @@ function asyncToggleDislikeComment(commentId) {
         await api.toggleDislikeComment({ threadId, commentId });
       } catch (error) {
         alert(error.message);
-        dispatch(
-          toggleDislikeCommentTrigger({ userId: authUser.id, commentId })
-        );
+        dispatch(toggleDislikeCommentTrigger({ userId: authUser.id, commentId }));
       }
     }
     dispatch(hideLoading());
@@ -279,6 +269,7 @@ function asyncToggleClearVoteComment({ userId, threadId, commentId }) {
 
 export {
   ActionType,
+  receiveThreadDetailTrigger,
   asyncReceiveThreadDetail,
   asyncAddNewComment,
   asyncToggleLikeThread,

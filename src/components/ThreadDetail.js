@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import parser from "html-react-parser";
-import { postedAt } from "../utils";
-import AccountProfile from "./AccountProfile";
-import Votes from "./Votes";
-import EditableInput from "./EditableInput";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import parser from 'html-react-parser';
+import { postedAt } from '../utils';
+import AccountProfile from './AccountProfile';
+import Votes from './Votes';
+import EditableInput from './EditableInput';
 
 export default function ThreadDetail({
   title,
@@ -22,14 +22,14 @@ export default function ThreadDetail({
   onDislikeComment,
 }) {
   const { authUser } = useSelector((state) => state);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [clearForm, setClearForm] = useState(false);
 
   return (
     <>
       <span className="badge__category"># {category}</span>
       <h3 className="mt-3">{title}</h3>
-      <div className="mt-6">{parser(body || "")}</div>
+      <div className="mt-6">{parser(body || '')}</div>
       <div className="mt-4 flex items-center space-x-3 text-sm lg:text-base">
         <Votes
           like={upVotesBy?.length}
@@ -46,17 +46,17 @@ export default function ThreadDetail({
         </div>
       </div>
 
-      <h5>Beri Komentar</h5>
+      <h5 className="mt-6">Beri Komentar</h5>
       <div>
         <EditableInput
-          initial={!authUser?.id && "Login to comment"}
+          initial={!authUser?.id && 'Login to comment'}
           disabled={!authUser?.id}
           reset={clearForm}
           onFocus={() => setClearForm(false)}
           onChange={(value) => setComment(value)}
         />
         <button
-          className="mt-2 bg-blue-500 px-8 py-2.5 text-right text-white disabled:bg-blue-300"
+          className="button__primary mt-2"
           onClick={(e) => {
             onAddComment(comment);
             setClearForm(true);
@@ -79,7 +79,7 @@ export default function ThreadDetail({
               />
               <span className="text-sm">{postedAt(comment?.createdAt)}</span>
             </div>
-            <div className="mt-2">{parser(comment?.content || "")}</div>
+            <div className="mt-2">{parser(comment?.content || '')}</div>
             <div className="mt-4 flex items-center space-x-3 text-sm lg:text-base">
               <Votes
                 like={comment?.upVotesBy?.length}
